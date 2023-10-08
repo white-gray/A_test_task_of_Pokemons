@@ -54,8 +54,8 @@ elif sys.platform == "win32":
             for entry in it:
                 if not entry.name.startswith('.') and entry.is_dir():
                     psqlPath = Path("C:\\","Progra~1","PostgreSQL",entry.name,"bin", "psql")
-                    print("entry.name = ", entry.name) # использовалось при написании приложения
-                    print("psqlPath = ", psqlPath)  # использовалось при написании приложения
+                    # print("entry.name = ", entry.name) # использовалось при написании приложения
+                    # print("psqlPath = ", psqlPath)  # использовалось при написании приложения
     except FileNotFoundError:
         psqlPath = input("PostgreSQL не найден в обычном месте. Укажите папку в которой расположен файл psql.exe")
         if not psqlPath:
