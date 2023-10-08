@@ -1,12 +1,11 @@
 import psycopg2
 
-
 from config import host, user, password, db_name, port
 
+IO_ERROR = IOError
 
 
 class BD_Postgress:
-
     connection = psycopg2.connect(
         host=host,
         user=user,
@@ -19,10 +18,8 @@ class BD_Postgress:
     def select(self, table, colon, cell):
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT * from %s WHERE %s=%s;" % (table, colon, cell)
-                )
-                return{cursor.fetchone()}
+                cursor.execute("SELECT * from %s WHERE %s=%s;" % (table, colon, cell))
+                return {cursor.fetchone()}
         except IOError as io:
             print("\n!!!!!\n\tERROR to DB def select\n", io)
         # finally:
@@ -49,7 +46,7 @@ class BD_Postgress:
                 cursor.execute(
                     "INSERT INTO %s(%s) VALUES(%s);" % (table, colons, insertData)
                 )
-        except IOError as io:
+        except IO_ERROR as io:
             print("\n!!!!!\n\tERROR to DB def insert\n", io)
         # finally:
         #     self.EndConnect(cursor)

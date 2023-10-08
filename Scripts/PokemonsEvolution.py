@@ -38,8 +38,7 @@ filename = "Покемоны " + datetime.datetime.now().strftime("%d.%m.%Y %H_%
 fullFileName = Path(filepath, filename)
 # print("fullFileName = ", fullFileName)
 
-# определени пути в файлу psql
-
+# определени пути в файле psql
 if sys.platform == "linux" or sys.platform == "linux2" or sys.platform == "linux3":
     # предполагается что там по-умолчанию расшарена папка м PostgreSQL. Не проверял.
     psqlPath = ""
@@ -54,8 +53,9 @@ elif sys.platform == "win32":
         with os.scandir("c:\\Program Files\\PostgreSQL\\") as it:
             for entry in it:
                 if not entry.name.startswith('.') and entry.is_dir():
-                    psqlPath = Path("C:\\Progra~1\\PostgreSQL\\",entry.name, "\\bin", "psql")
-                    # print("psqlPath = ", entry.name)
+                    psqlPath = Path("C:\\","Progra~1","PostgreSQL",entry.name,"bin", "psql")
+                    print("entry.name = ", entry.name) # использовалось при написании приложения
+                    print("psqlPath = ", psqlPath)  # использовалось при написании приложения
     except FileNotFoundError:
         psqlPath = input("PostgreSQL не найден в обычном месте. Укажите папку в которой расположен файл psql.exe")
         if not psqlPath:
@@ -65,9 +65,9 @@ elif sys.platform == "win32":
         print("неучтенная ошибка: ")
         sys.exit(1)
 
-# print("psqlPath = ", psqlPath)
+print("psqlPath = ", psqlPath)  # использовалось при написании приложения
 command = str(psqlPath) + " -U postgres -d pokemon -c \"\\COPY (select * from data_about_pokemons()) TO '" + str(fullFileName) + "' CSV HEADER DELIMITER ',';\""
 # чтение данных из таблицы и выгрухка файла с данными по покемонам
 # print("command = ", command)
-print("Данные по покамонам записаны в файл ", str(fullFileName))
+print("Данные по покемонам записаны в файл ", str(fullFileName))
 os.system(command)

@@ -13,6 +13,11 @@ CREATE DATABASE pokemon
 
 COMMENT ON DATABASE pokemon
     IS 'Тестовое задание по REST API';
+
+-- вход в БД pokemon
+\с pokemon
+
+
 ----------------------------------------------------------------------------------------------------------------	
 -- Table: public.species
 
